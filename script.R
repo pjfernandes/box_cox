@@ -56,5 +56,5 @@ lambda <- BoxCox.lambda(AADT$aadt, method="loglik", lower=-3, upper=3)
 boxcox_trans <- BoxCox(AADT$aadt, lambda)
 boxcox_trans
 
-plot(out$tf.data,as.vector(boxcox_trans))
+plot(out$tf.data,as.vector(boxcox_trans),xlab="Transformação pelo pacote fpp", y="Transformação pelo pacote AADT")
 abline(lm(as.vector(boxcox_trans)~out$tf.data),col="red")
