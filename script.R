@@ -17,7 +17,7 @@ library(AID)
 library(onewaytests)
 
 describe(Acum_CT ~ Lagoas, data = df)
-nor.test(Acum_CT ~ Lagoas, data = df)
+#nor.test(Acum_CT ~ Lagoas, data = df)
 homog.test(Acum_CT ~ Lagoas, data = df, method = "Bartlett")
 
 out <- boxcoxfr(df$Acum_CT, as.factor(df$Lagoas), lambda = seq(-10, 10, 1/10), tau=0.001)
