@@ -39,7 +39,7 @@ GFD(predict(bc, df$Acum_CT)~df$Lagoas)
 ##################################################################TESTE COM PACOTE FPP/FORECAST
 library(fpp)
 
-lambda <- BoxCox.lambda(df$Acum_CT, method="loglik", lower=-5, upper=5)
+lambda <- BoxCox.lambda(df$Acum_CT, method="loglik", lower=-2, upper=2)
 boxcox_trans <- BoxCox(df$Acum_CT, lambda)
 shapiro.test((df$Acum_CT))
 shapiro.test(boxcox_trans)
@@ -47,6 +47,10 @@ shapiro.test(boxcox_trans)
 anova(aov(predict(bc, df$Acum_CT)~df$Lagoas))
 
 GFD(predict(bc, df$Acum_CT)~df$Lagoas)
+
+data.frame(as.vector(boxcox_trans), BoxCoxTrans(df$Acum_CT) )
+
+
 #####################################################TESTE DE COMPARAÇÃO DE RESULTADOS DE TRANSFORMAÇÃO
 data(AADT)
 out<-boxcoxfr(AADT$aadt, AADT$class, lambda = seq(-3, 3, 0.01))
@@ -58,3 +62,6 @@ boxcox_trans
 
 plot(out$tf.data,as.vector(boxcox_trans),xlab="Transformação pelo pacote AID", ylab="Transformação pelo pacote fpp")
 abline(lm(as.vector(boxcox_trans)~out$tf.data),col="red")
+
+resultado <- data.frame(out$tf.data, as.vector(boxcox_trans))
+write.csv(resultado, "resultado.csv", row.names = FALSE)
